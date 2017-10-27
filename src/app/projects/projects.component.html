@@ -7,7 +7,8 @@
 
 
     <div class="row">
-        <div class="col-lg-4 project-container" *ngFor="let project of projects;let i = index;" (mouseenter)="this.mouseOverProjectFlags[i]=true;" (mouseleave)="this.mouseOverProjectFlags[i]=false;">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 project-container" *ngFor="let project of projects;let i = index;" (mouseenter)="this.mouseOverProjectFlags[i]=true;"
+            (mouseleave)="this.mouseOverProjectFlags[i]=false;">
             <div class="project">
                 <h4 class="siteurl">
                     {{project.siteurl}}
@@ -22,14 +23,19 @@
                 </div>
                 <div [ngClass]="{ 'display-none': !mouseOverProjectFlags[i], 'project-action-container': true  }">
                     <div class="row" style="margin-left:0px;margin-right:0px;">
-                        <div class="col-lg-5 project-action-wrapper" (click)="loadProject(i)">
-                            <span class="project-action"><img src="../assets/img/projects/view.png" class="project-action-img"></span>
+                        <div class="col-lg-5 col-md-5 col-sm-5 project-action-wrapper" (click)="loadProject(i)">
+                            <span class="project-action">
+                                <img src="../assets/img/projects/view.png" class="project-action-img">
+                            </span>
                         </div>
-                        <div class="col-lg-5 project-action-wrapper" (click)="viewScript(i)">
-                            <span class="project-action"><img src="../assets/img/projects/brackets.png" class="project-action-img"></span>
+                        <div class="col-lg-5 col-md-5 col-sm-5 project-action-wrapper" (click)="viewScript(i)">
+                            <span class="project-action">
+                                <img src="../assets/img/projects/brackets.png" class="project-action-img">
+                            </span>
                         </div>
                     </div>
-                    <br><br>
+                    <br>
+                    <br>
                     <div class="delete-project-wrapper">
                         <img (click)="deleteProject(i)" src="../assets/img/projects/cross.png" style="margin-top:0px;margin-bottom:10px;cursor:pointer;width:25px;height:25px;">
                     </div>
@@ -38,9 +44,11 @@
         </div>
 
 
-        <div class="col-lg-4 project-container" (click)="createProjectModal()">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 project-container" (click)="createProjectModal()">
             <div class="project" style="cursor: pointer;">
-                <br><br><br>
+                <br>
+                <br>
+                <br>
                 <h4 class="plus-sign">
                     +
                 </h4>
@@ -73,7 +81,8 @@
             </div>
             <div class="modal-footer">
                 <span [ngClass]="{'display-none':!copied}" style="font-style:italic;">Copied to clipboard.</span>
-                <button type="button" class="btn btn-primary" ngxClipboard [cbContent]="viewScriptModalSnippet" (cbOnSuccess)="copiedOnSuccess()"><i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;Copy</button>
+                <button type="button" class="btn btn-primary" ngxClipboard [cbContent]="viewScriptModalSnippet" (cbOnSuccess)="copiedOnSuccess()">
+                    <i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;Copy</button>
             </div>
         </div>
     </div>
@@ -90,7 +99,9 @@
             <div class="modal-body">
                 <p style="font-style:italic;">Please provide us with the domain name of your site, in which you want to enable keyguard authentication.</p>
                 <br>
-                <label>Domain Name <small style="font-style:italic;">(without www prefix or http/https)</small> :</label> <input class="form-control" placeholder="example.com" [(ngModel)]="theNewProjectSiteUrl">
+                <label>Domain Name
+                    <small style="font-style:italic;">(without www prefix or http/https)</small> :</label>
+                <input class="form-control" placeholder="example.com" [(ngModel)]="theNewProjectSiteUrl">
                 <div class="help-block" *ngIf="createTheProjectClicked && ( theNewProjectSiteUrl == '' || theNewProjectSiteUrl == undefined)">
                     Domain Name is required.
                 </div>
