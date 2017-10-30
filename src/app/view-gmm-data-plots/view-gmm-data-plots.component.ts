@@ -49,7 +49,8 @@ export class ViewGmmDataPlotsComponent implements OnInit, AfterViewInit, OnDestr
     yAxisMinimumInterval: 0.00002,
     yAxisLabel: 'Frequency (x 1000)',
     xAxisLabel: 'Digraph Timings (ms)',
-    datasetStrokeWidth: 7
+    datasetStrokeWidth: 7,
+    showSingleLegend : true
   }
   /**/
   // strokeColor: this.COLORS[0],
