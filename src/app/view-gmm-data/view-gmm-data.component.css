@@ -1,0 +1,78 @@
+h3.main {
+    text-decoration: underline;
+}
+
+h4.sub {
+    font-style: italic;
+}
+
+p.info {
+    font-weight: bold;
+}
+
+
+/* Gmm */
+
+.gmm-data-container {
+    border: 1px solid #c7cae7;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+.filter-input {
+    width: 300px;
+    font-size: 18px;
+    color: black;
+}
+
+.fixed-height-scrollable {
+    height: 500px;
+    overflow: scroll;
+}
+
+.gmm-digraph-wrapper {
+    text-align: center;
+}
+
+.gmm-digraph-wrapper-border-right-enable {
+    border-right: 1px solid #c7cae7;
+}
+
+span.gmm-digraph {
+    font-size: 21px;
+    cursor: pointer;
+    color: rgb(27, 27, 27);
+}
+
+span.gmm-digraph:hover {
+    text-decoration: underline;
+    color: #1d6ab8;
+}
+
+@media screen and (max-width: 768px) {
+    span.gmm-digraph {
+        font-size: 13px;
+    }
+    .filter-input {
+        width: 150px;
+        font-size: 12px;
+        color: black;
+    }
+}
+
+hr.my-hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #a4a4a4;
+    /* old IE */
+    background-color: #a4a4a4;
+    /* Modern Browsers */
+}
+
+.double-arrow-img {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    padding-bottom: 4px;
+}

@@ -19,7 +19,7 @@ export class ProjectsComponent implements OnInit {
   mouseOverProjectFlags: any; // will be array of flags later
 
   // Script track_code loaded from index
-  viewScriptModalSnippet= '';
+  viewScriptModalSnippet = '';
   copied = false;
 
   constructor(private userService: UserService, private router: Router, private alertService: AlertService) { }
@@ -28,7 +28,7 @@ export class ProjectsComponent implements OnInit {
    * Gets the projects from the back-end and saves it to localstorage for later use
    */
   ngOnInit() {
-   this.loadAllProjectsFromServer();
+    this.loadAllProjectsFromServer();
 
     // ~~ DEGBUGGING
     //   // ~~~~~~~~
@@ -75,10 +75,10 @@ export class ProjectsComponent implements OnInit {
     // Get the current user from local storage
     const localStor = JSON.parse(localStorage.getItem('currentUser'));
     if (!localStor) {
-        alert('You are not logged in');
-        this.router.navigate(['/login']);
-    }else {
-       return localStor._id;
+      alert('You are not logged in');
+      this.router.navigate(['/login']);
+    } else {
+      return localStor._id;
     }
   }
 
@@ -89,14 +89,14 @@ export class ProjectsComponent implements OnInit {
     const _id = this.getUserIdFromLocalStorage();
     this.userService.loadProjects(_id).subscribe(
       data => {
-          if (data.success) {
-            this.projects = data.projects;
-            this.mouseOverProjectFlags = new Array(this.projects.length).fill(false)
-            console.log(this.projects);
-          }else {
-            this.alertService.error(data.message, false, 3000);
-            window.scrollTo(0, 0);
-          }
+        if (data.success) {
+          this.projects = data.projects;
+          this.mouseOverProjectFlags = new Array(this.projects.length).fill(false)
+          console.log(this.projects);
+        } else {
+          this.alertService.error(data.message, false, 3000);
+          window.scrollTo(0, 0);
+        }
       });
   }
 
@@ -105,10 +105,10 @@ export class ProjectsComponent implements OnInit {
    */
   loadProject(index) {
 
-   sessionStorage.setItem( 'currentProject', JSON.stringify(this.projects[index]));
+    sessionStorage.setItem('currentProject', JSON.stringify(this.projects[index]));
 
     console.log(this.projects[index]);
-    this.router.navigate(['/view-project', this.projects[index]._id ]);
+    this.router.navigate(['/view-project', this.projects[index]._id]);
   }
 
   /**
@@ -119,14 +119,14 @@ export class ProjectsComponent implements OnInit {
       const user_id = this.getUserIdFromLocalStorage();
       this.userService.deleteProject(user_id, this.projects[index]._id).subscribe(
         data => {
-            if (data.success) {
-              this.alertService.success('Project Deleted!', false, 2500);
-              this.projects = data.projects;
-              window.scrollTo(0, 0);
-            }else {
-              this.alertService.error(data.message, false, 3000);
-              window.scrollTo(0, 0);
-            }
+          if (data.success) {
+            this.alertService.success('Project Deleted!', false, 2500);
+            this.projects = data.projects;
+            window.scrollTo(0, 0);
+          } else {
+            this.alertService.error(data.message, false, 3000);
+            window.scrollTo(0, 0);
+          }
         });
     }
   }
@@ -149,13 +149,13 @@ export class ProjectsComponent implements OnInit {
   /** Called on copy success
    *
    */
-    copiedOnSuccess() {
-      console.log('copied');
-      this.copied = true;
-      const that = this;
-      setTimeout(function(){
-          that.copied = false;
-      }, 1000);
+  copiedOnSuccess() {
+    console.log('copied');
+    this.copied = true;
+    const that = this;
+    setTimeout(function () {
+      that.copied = false;
+    }, 1000);
   }
 
   /**
@@ -170,9 +170,9 @@ export class ProjectsComponent implements OnInit {
    */
   createTheProject() {
     this.createTheProjectClicked = true;
-    if (this.theNewProjectSiteUrl === '' || this.theNewProjectSiteUrl === undefined ) {
+    if (this.theNewProjectSiteUrl === '' || this.theNewProjectSiteUrl === undefined) {
       return;
-    }else {
+    } else {
       const user_id = this.getUserIdFromLocalStorage();
       this.userService.createProject(user_id, this.theNewProjectSiteUrl).subscribe(
         data => {
@@ -184,10 +184,10 @@ export class ProjectsComponent implements OnInit {
             window.scrollTo(0, 0);
             if (this.projects !== undefined) {
               this.projects.push(data.project);
-            }else {
+            } else {
               this.projects = [data.project];
             }
-          }else {
+          } else {
             this.alertService.error(data.message, false, 3000);
             window.scrollTo(0, 0);
           }

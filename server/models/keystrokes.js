@@ -6,26 +6,61 @@ var Schema = mongoose.Schema;
 
 // keystroke schema
 var KeystrokeSchema = new Schema({
-    track_code: { type: String, required: true }, // reference to track_code of admin of user.js model
-    subject: { type: String, required: true }, // the subject whose keystroke data belong to
-    rejections: { type: Number, required: true, default: 0 }, // total rejections of user
-    is_trained: { type: Boolean, default: false }, // True when the model is trained,
+    track_code: {
+        type: String,
+        required: true
+    }, // reference to track_code of admin of user.js model
+    subject: {
+        type: String,
+        required: true
+    }, // the subject whose keystroke data belong to
+    rejections: {
+        type: Number,
+        required: true,
+        default: 0
+    }, // total rejections of user
+    is_trained: {
+        type: Boolean,
+        default: false
+    }, // True when the model is trained,
     di_gmms: [{
-        digraph: { type: String },
-        weights: { type: [Number] },
-        means: { type: [Number] },
-        covs: { type: [Number] },
-        stds: { type: [Number] }
+        digraph: {
+            type: String
+        },
+        data: {
+            type: [Number]
+        },
+        labels: {
+            type: [Number]
+        },
+        weights: {
+            type: [Number]
+        },
+        means: {
+            type: [Number]
+        },
+        covs: {
+            type: [Number]
+        },
+        stds: {
+            type: [Number]
+        }
     }], // Exei 27x27=729 kelia, ka8e keli antistoixei se ena digraph
     sessions: [{ // sessions of the user.
-        date: { type: Date, default: new Date() },
+        date: {
+            type: Date,
+            default: new Date()
+        },
         keystroke_code: {
             type: [
                 [Number]
             ],
             required: true
         },
-        keystroke_dt: { type: [Number], required: true }
+        keystroke_dt: {
+            type: [Number],
+            required: true
+        }
     }]
 });
 

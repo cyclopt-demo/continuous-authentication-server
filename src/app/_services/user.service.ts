@@ -29,10 +29,14 @@ export class UserService {
 
     createProject(user_id: string, siteurl: any) {
         return this.http.post('/api/project/' + user_id,
-            {siteurl: siteurl} , this.jwt()).map((response: Response) => response.json());
+            { siteurl: siteurl }, this.jwt()).map((response: Response) => response.json());
     }
 
-    deleteProject(user_id: string, project_id: string ) {
+    getProject(user_id: string, project_id: string) {
+        return this.http.get('/api/project/' + user_id + '/' + project_id, this.jwt()).map((response: Response) => response.json());
+    }
+
+    deleteProject(user_id: string, project_id: string) {
         return this.http.delete('/api/project/' + user_id + '/' + project_id, this.jwt()).map((response: Response) => response.json());
     }
 
@@ -46,12 +50,12 @@ export class UserService {
 
     train(user_id: string, project_id: string, training_settings: any) {
         return this.http.post('/api/train/' + user_id + '/' + project_id,
-             {training_settings: training_settings} , this.jwt()).map((response: Response) => response.json());
+            { training_settings: training_settings }, this.jwt()).map((response: Response) => response.json());
     }
 
     changeProject(user_id: string, project_id: string, project: any) {
-        return this.http.put('/api/project/' +  user_id + '/' + project_id, {project: project},
-             this.jwt()).map((response: Response) => response.json());
+        return this.http.put('/api/project/' + user_id + '/' + project_id, { project: project },
+            this.jwt()).map((response: Response) => response.json());
     }
 
     deleteSubjectsData(user_id: string, project_id: string) {
@@ -65,13 +69,17 @@ export class UserService {
     }
 
     downloadSubjectsData(user_id: string, subject_id: string, project_id: string) {
-        // browser redirect to download file
+        // browser redirect to download file EDW isws to project_id eine axristo
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             window.location.href =
-                 window.location.origin + '/api/subject_data/'
-                    + user_id + '/' + subject_id + '/' + project_id + '?token=' + currentUser.token;
+                window.location.origin + '/api/subject_data/'
+                + user_id + '/' + subject_id + '/' + project_id + '?token=' + currentUser.token;
         }
+    }
+
+    getSubjectsGMMData(user_id: string, subject_id: string) {
+        return this.http.get('/api/gmm_data/' + user_id + '/' + subject_id, this.jwt()).map((response: Response) => response.json());
     }
 
 
@@ -86,7 +94,7 @@ export class UserService {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             const headers = new Headers();
-            headers.append('x-access-token', currentUser.token  );
+            headers.append('x-access-token', currentUser.token);
             return new RequestOptions({ headers: headers });
         }
     }

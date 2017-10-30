@@ -1,0 +1,30 @@
+<h3 class="main">Digraphs trained with Gaussian Mixture Model.</h3>
+<h4 class="sub">Subject_id: {{subject_id}}</h4>
+<br>
+
+<p class="info">You can click on a digraph to view the gaussian probability density functions for each component.</p>
+
+<div class="gmm-data-container" *ngIf="!di_gmms_loading_flag">
+  <input class="form-control filter-input" placeholder="Search Digraph Here..." type="text" [(ngModel)]="term">
+  <br>
+  <div class="fixed-height-scrollable">
+    <div class="row" style="margin:auto;">
+      <div *ngFor="let di_gmm of di_gmms|filter:term; let i= index;" [ngClass]="{'col-lg-1':true, 'col-md-1':true, 'col-sm-1':true, 'col-xs-1':true, 'gmm-digraph-wrapper':true,'gmm-digraph-wrapper-border-right-enable': ((i+1) % 12) !== 0}">
+        <span class="gmm-digraph" (click)="loadDigraphGraphComponent(di_gmm.digraph)">{{di_gmm.digraph}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gmm-data-container" *ngIf="di_gmms_loading_flag">
+  <div align="center">
+    <img src="../assets/img/loading.gif" style="width:140px;height:auto;">
+  </div>
+</div>
+
+<div *ngIf="this.diGMMIndexToPlot > -1" id="gmm-plot-id">
+  <hr class="my-hr">
+  <img class="double-arrow-img" src="../assets/img/gmms/two-arrows-pointing-up-primary.png" (click)="this.diGMMIndexToPlot = -1">
+  <br>
+  <app-view-gmm-data-plots [model]="di_gmms[diGMMIndexToPlot]"></app-view-gmm-data-plots>
+</div>

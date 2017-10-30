@@ -1,5 +1,7 @@
 import { ViewProjectComponent } from './view-project/view-project.component';
+import { ViewGmmDataComponent } from './view-gmm-data/view-gmm-data.component';
 import { ProjectsComponent } from './projects/projects.component';
+
 import { LearnmoreComponent } from './learnmore/learnmore.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -22,11 +24,9 @@ const appRoutes: Routes = [
     { path: 'myprofile', component: MyProfileComponent, canActivate: [AuthGuard] },  // canActivate: [AuthGuard]
     { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] }, // canActivate: [AuthGuard]
     { path: 'view-project/:id', component: ViewProjectComponent, canActivate: [AuthGuard] }, // canActivate: [AuthGuard]
+    { path: 'view-gmm-data/:id', component: ViewGmmDataComponent, canActivate: [AuthGuard] }, // canActivate: [AuthGuard]
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
-
-// he app routing file defines the routes of the application, each route contains a path and associated component.
-// The home route is secured by passing the AuthGuard to the canActivate property of the route.

@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
@@ -42,26 +42,35 @@ export class ViewProjectComponent implements OnInit, AfterViewInit {
     keystroke_collect_period: 'Set how often (per how many digraphs typed) should the logging script send data to the server for collect/authentication.'
   }
 
+
   constructor(private alertService: AlertService, private router: Router,
     private route: ActivatedRoute, private userService: UserService) { }
 
 
   /**
    * Extracts the id project frmo the url
-   * Loads the project from session storage
+   * Loads the project from session storage or the server
    * Get the dashboard-data of subjects from back-end
    */
   ngOnInit() {
 
-    this.currentProject = JSON.parse(sessionStorage.getItem('currentProject')); // load project
-    sessionStorage.removeItem('currentProject');
+    // Get project-id
     this.route.params.subscribe(params => {
       this._projectId = params['id'];
-    }); // load project-id (redundant)
-    this.loadDashboardData();
+    });
 
-    this.setTrainingSlider();
-    this.setLastTrainDate();
+    // Get currentProject from sessionStorage if available, otherwise load it from server
+    if (sessionStorage.getItem('currentProject') !== null) {
+      console.log('Loading currentProject from sesionStorage');
+      this.currentProject = JSON.parse(sessionStorage.getItem('currentProject')); // load project
+      sessionStorage.removeItem('currentProject');
+      this.loadDashboardData();
+      this.setTrainingSlider();
+      this.setLastTrainDate();
+    } else {
+      console.log('Loading currentProject from server...')
+      this.loadProjectFromServer();
+    }
 
     // ~~~~~~~~ DEBUGGING
     // this.currentProject = {
@@ -113,6 +122,25 @@ export class ViewProjectComponent implements OnInit, AfterViewInit {
     } else {
       return localStor._id;
     }
+  }
+
+  /**
+   * Load the project from the server if it is not available from sessionStorage
+   */
+  loadProjectFromServer() {
+    const _id = this.getUserIdFromLocalStorage();
+    this.userService.getProject(_id, this._projectId).subscribe(
+      data => {
+        if (data.success) {
+          this.currentProject = data.project;
+          this.loadDashboardData();
+          this.setTrainingSlider();
+          this.setLastTrainDate();
+        } else {
+          this.alertService.error(data.message, false, 3000);
+          window.scrollTo(0, 0);
+        }
+      });
   }
 
   /**
@@ -332,6 +360,13 @@ export class ViewProjectComponent implements OnInit, AfterViewInit {
       if (up_bool) { tmpMax = tmpMax + (2 * offset); }
       this.trainingDtRange = [tmpMin, tmpMax];
     }
+  }
+
+  /**
+   * Starts the component to view di_gmm graphs
+   */
+  startGMMDataComponent(index) {
+    this.router.navigate(['/view-gmm-data', this.dashboardData.userStatistics[index].id]);
   }
 
   /**

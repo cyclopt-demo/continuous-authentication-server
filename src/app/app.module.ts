@@ -1,12 +1,13 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {NouisliderModule} from 'ng2-nouislider/src/nouislider';
+import { NouisliderModule } from 'ng2-nouislider/src/nouislider';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
-
-import { AppComponent }  from './app.component';
-import { routing }        from './app.routing';
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 import { ClipboardModule } from 'ngx-clipboard';
 
 
@@ -23,6 +24,8 @@ import { AboutComponent } from './about/about.component';
 import { LearnmoreComponent } from './learnmore/learnmore.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ViewProjectComponent } from './view-project/view-project.component';
+import { ViewGmmDataComponent } from './view-gmm-data/view-gmm-data.component';
+import { ViewGmmDataPlotsComponent } from './view-gmm-data-plots/view-gmm-data-plots.component';
 
 
 
@@ -34,7 +37,9 @@ import { ViewProjectComponent } from './view-project/view-project.component';
         HttpModule,
         routing,
         ClipboardModule,
-        NouisliderModule
+        NouisliderModule,
+        Ng2SearchPipeModule,
+        Ng2PageScrollModule
     ],
     declarations: [
         AppComponent,
@@ -48,7 +53,9 @@ import { ViewProjectComponent } from './view-project/view-project.component';
         AboutComponent,
         LearnmoreComponent,
         ProjectsComponent,
-        ViewProjectComponent
+        ViewProjectComponent,
+        ViewGmmDataComponent,
+        ViewGmmDataPlotsComponent
     ],
     providers: [
         AuthGuard,

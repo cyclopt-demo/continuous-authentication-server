@@ -132,7 +132,7 @@ p.created-on {
 
 .my-snippet-container {
     white-space: pre-line;
-    background-color: rgba(173, 183, 252, 0.5);
+    background-color: #0976fd0f;
     border-radius: 3px;
     padding: 20px 20px 20px 20px;
     font-size: 14px;
